@@ -1,8 +1,9 @@
 Programm : 7 segments display
 
-2 Functions :  - Enter character on the keyboard
-               - Hexadecimal counter
-Interruption : - When you press the button, make hexadecimal countdown
+2 Functions  :  - Enter character on the keyboard
+                - Hexadecimal counter
+
+Interruption :  - When you press the button, make hexadecimal countdown
 
 Required :
 

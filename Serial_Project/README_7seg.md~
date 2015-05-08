@@ -2,6 +2,7 @@ Programm : 7 segments display
 
 2 Functions :  - Enter character on the keyboard
                - Hexadecimal counter
+
 Interruption : - When you press the button, make hexadecimal countdown
 
 Required :
@@ -16,8 +17,7 @@ Required :
     CuteCom
 
 
-
-You need to look connections at the begenning of 'feux_carrefour.c'
+You need to look connections at the begenning of 'serial.c'
 
 To compile, you have to use `make flash`
 
