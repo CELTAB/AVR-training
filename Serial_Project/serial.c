@@ -34,12 +34,13 @@
 /********************************************************************************************/
 /** To use this programm, you need to connect to the atmega328p :                          **/
 /** Segments (PINS) :                                                                      **/
-/**   - a (7) : PB0         - e (1) : PC1                                                  **/
-/**   - b (6) : PB1         - f (9) : PC2           PINS 3 & 8 connected to Vcc            **/
-/**   - c (4) : PB2         - g (10): PC3                                                  **/
-/**   - d (2) : PC0         - DP(5) : PC4                                                  **/
+/**   - a (7)     : PB0         - e (1) : PC1                                              **/
+/**   - b (6)     : PB1         - f (9) : PC2           PINS 3 & 8 connected to Vcc        **/
+/**   - c (4)     : PB2         - g (10): PC3                                              **/
+/**   - d (2)     : PC0         - DP(5) : PC4                                              **/
+/**   - Button_1  : PD2                                                                    **/
+/**   - TXD       : PD0(RXD)    - RXD   : PD1(TXD)   (USB2Serial)                          **/
 /**                                                                                        **/
-/** Button_1         on PD2       (street_1)  :  B1                                        **/
 /** For the connexion with the Arduino Uno :                                               **/
 /**  ~11             on PB3                                                                **/
 /**  12              on PB4                                                                **/
