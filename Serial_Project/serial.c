@@ -1,25 +1,50 @@
-/********************************************************************************************/  /********************************/
-/********************************************************************************************/  /**       ______________       **/
-/****************************** 7 segments display (YSD-160AR4B-8) **************************/  /**    __|______________|__    **/
-/***********       2 Functions : - Displays the character written on the keyboard ***********/  /**   |  |        a     |  |   **/
-/***********                     - Hexadecimal counter                            ***********/  /**   |  |              |  |   **/
-/********************************************************************************************/  /**   |  |              |  |   **/
-/*********** Optional Function : - Hexadécimal countdown (interrupt button)       ***********/  /**   |  |f            b|  |   **/
-/********************************************************************************************/  /**   |  |              |  |   **/
-/********************************************************************************************/  /**   |  |              |  |   **/
-/** To use this programm, you need to connect to the atmega328p :                          **/  /**   |__|______________|__|   **/
-/** Segments (PINS) :                                                                      **/  /**    __|______________|__    **/
-/**   - a (7) : PB0         - e (1) : PC1                                                  **/  /**   |  |        g     |  |   **/
-/**   - b (6) : PB1         - f (9) : PC2           PINS 3 & 8 connected to Vcc            **/  /**   |  |              |  |   **/
-/**   - c (4) : PB2         - g (10): PC3                                                  **/  /**   |  |              |  |   **/
-/**   - d (2) : PC0         - DP(5) : PC4                                                  **/  /**   |  |e            c|  |   **/
-/**                                                                                        **/  /**   |  |              |  |   **/
-/** Button_1         on PD2       (street_1)  :  B1                                        **/  /**   |  |              |  |   **/
-/** For the connexion with the Arduino Uno :                                               **/  /**   |__|______________|__|   **/
-/**  ~11             on PB3                                                                **/  /**      |______________|  __  **/
-/**  12              on PB4                                                                **/  /**               d       |__| **/
-/**  13              on PB5                                                                **/  /**                        DP  **/
-/**  ~10             on PC6 (Reset)                                                        **/  /********************************/
+/********************************************************************************************/
+/********************************************************************************************/
+/****************************** 7 segments display (YSD-160AR4B-8) **************************/
+/***********       2 Functions : - Displays the character written on the keyboard ***********/
+/***********                     - Hexadecimal counter                            ***********/
+/********************************************************************************************/
+/*********** Optional Function : - Hexadécimal countdown (interrupt button)       ***********/
+/********************************************************************************************/
+/********************************************************************************************/
+/***********                         _________________                            ***********/
+/***********                        /        a        \                           ***********/
+/***********                        \ ________________/                           ***********/
+/***********                      / \                  / \                        ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     | f |                | b |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                      \ / ________________ \ /                        ***********/
+/***********                        /        g        \                           ***********/
+/***********                        \ ________________/                           ***********/
+/***********                      / \                  / \                        ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     | e |                | c |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |                       ***********/
+/***********                     |   |                |   |       ___             ***********/
+/***********                      \ / ________________ \ /       /   \            ***********/
+/***********                        /        d        \          |   |            ***********/
+/***********                        \ ________________/          \ __/            ***********/
+/********************************************************************************************/
+/********************************************************************************************/
+/** To use this programm, you need to connect to the atmega328p :                          **/
+/** Segments (PINS) :                                                                      **/
+/**   - a (7) : PB0         - e (1) : PC1                                                  **/
+/**   - b (6) : PB1         - f (9) : PC2           PINS 3 & 8 connected to Vcc            **/
+/**   - c (4) : PB2         - g (10): PC3                                                  **/
+/**   - d (2) : PC0         - DP(5) : PC4                                                  **/
+/**                                                                                        **/
+/** Button_1         on PD2       (street_1)  :  B1                                        **/
+/** For the connexion with the Arduino Uno :                                               **/
+/**  ~11             on PB3                                                                **/
+/**  12              on PB4                                                                **/
+/**  13              on PB5                                                                **/
+/**  ~10             on PC6 (Reset)                                                        **/
 /**  5v              on Vcc                                                                **/
 /**  Gnd             on Gnd                                                                **/
 /********************************************************************************************/
@@ -28,12 +53,16 @@
 /** Stop the counting, do the countdown and return at the last function                    **/
 /********************************************************************************************/
 /********************************************************************************************/
+
+/** Library **/
 #include <usart.h>
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 //#include <stdio.h>
+
+/** Déclaration for CuteCom Interface **/
 uint8_t state;
 char tab_choose     [60] = "\nChoose function 0: enter character  1: hexadecimal counter\n";
 char tab_letter     [26] = "\nYou just typed a letter : ";
@@ -43,6 +72,9 @@ char tab_timec      [59] = "\nHow many time would you like counting between 0 an
 char tab_interrupt  [26] = "\nYou just pressed a button ";
 char tab_wrong      [13] = "\nWrong value ";
 char tab_count      [26] = "\nThe program has counted : ";
+
+/** Decoding 7 segments **/
+
 void write_0 (void)
 {
 	PORTB = 0 ;
@@ -128,6 +160,7 @@ void write_DP (void)
 	PORTB = 7 ;
 	PORTC = 15;
 }
+
 char write_car (char chx)
 {
 	switch (chx)
@@ -299,6 +332,9 @@ void write_tab (char *tab, uint8_t size)
 		USART_transmit_byte(tab[cpt]);
 	}	
 }
+
+/** Interruption **/
+
 ISR(INT0_vect)
 {
  	char i;
@@ -322,22 +358,22 @@ ISR(INT0_vect)
 
 int main (void)
 {
-	DDRD = 1<<PD2;
-	PORTD = 1<<PD2;
-	EIMSK = 1<<INT0;
-	MCUCR = 1<<ISC01 | 1<<ISC00;
-	sei();
+	DDRD = 1<<PD2;                /*******************************/
+	PORTD = 1<<PD2;               /*******************************/
+	EIMSK = 1<<INT0;              /** Required to use interrupt **/
+	MCUCR = 1<<ISC01 | 1<<ISC00;  /*******************************/
+	sei();                        /*******************************/
 	
-	DDRB = 7;
-	DDRC = 31;
-	PORTB = 7;
-	PORTC = 31;
-	char chx, choose;
-	uint8_t state =0;
-	USART_init();
-	char count_time = 0x30;
-	char cpt_2;
-	state = 0;
+	DDRB = 7;                     /**************************************************************************************************/
+	DDRC = 31;                    /** PB0, PB1 and PB2 output config                                                               **/
+	PORTB = 7;                    /** PC0, PC1, PC2, PC3 and PC4 output config                                                     **/
+	PORTC = 31;                   /**************************************************************************************************/
+	char chx, choose;             /** choose : Choose the function in  1st menu, chx : Receive character when you type at keyboard **/
+	uint8_t state =0;             /** state : Used to manage interruption                                                          **/
+	USART_init();                 /** USART_init() : Required to use USB2Serial communication                                      **/
+	char count_time = 0x30;       /** count_time : Receive how many times you would like to count                                  **/
+	char cpt_2;                   /** cpt_2 : increments for each count                                                            **/
+	state = 0;                    /**************************************************************************************************/
 	while(1)
 	{
 		write_tab(tab_choose, 60);
@@ -395,4 +431,3 @@ int main (void)
 	} 
 	return 0;
 }
-
