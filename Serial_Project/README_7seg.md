@@ -16,8 +16,7 @@ Required :
     CuteCom
 
 
-
-You need to look connections at the begenning of 'feux_carrefour.c'
+You need to look connections at the begenning of 'serial.c'
 
 To compile, you have to use `make flash`
 

@@ -13,6 +13,8 @@ Required :
     1 push button
     1 7segment display (YSD-160AR4B-8)
 
+    CuteCom
+
 
 
 You need to look connections at the begenning of 'feux_carrefour.c'
